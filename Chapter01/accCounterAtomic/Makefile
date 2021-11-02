@@ -1,22 +1,21 @@
-SRCS = accTask.cpp 
+SRCS = accCounter.cpp 
 OBJS = $(SRCS:.cpp=.o)
 
 CC       = pgcc
 CXX      = pgc++
 
 ACCFLAGS = -acc -ta=multicore,nvidia -Minfo=accel
-#CXXFLAGS += -c -std=c++11 -O3 $(ACCFLAGS)
-CXXFLAGS += -c -std=c++11 -fast $(ACCFLAGS)
+CXXFLAGS += -c -std=c++11 -DUSE_ATOMIC $(ACCFLAGS)
 
 GPUFLAGS = -ta=multicore,nvidia -Minfo=accel
 LDFLAGS  = $(GPUFLAGS)
-TARGET = main
+TARGET = accCounter_atomic
 
 all: $(TARGET)
 
 $(TARGET): $(OBJS) 
 	$(CXX) $(LDFLAGS) $^ -o $@
-accTask.o: accTask.cpp
+accCounter.o: accCounter.cpp
 	$(CXX) $^ $(CXXFLAGS) -o $@
 
 .PHONY: clean
