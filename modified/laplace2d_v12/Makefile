@@ -20,7 +20,7 @@ OBJS = $(SRCS:.cpp=.o)
 #CC       = pgcc
 CXX       = pgc++
 
-GPUFLAGS = -ta=tesla:managed -Minfo=accel
+GPUFLAGS = -ta=tesla:managed -Minline -Minfo=accel
 ACCFLAGS = -acc $(GPUFLAGS)
 CXXFLAGS += -fast -c -std=c++11 $(ACCFLAGS)
 LDFLAGS = $(GPUFLAGS)

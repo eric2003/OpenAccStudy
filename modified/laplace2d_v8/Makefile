@@ -35,4 +35,3 @@ laplace2d.o: laplace2d.cpp
 	$(CXX) $^ $(CXXFLAGS) -o $@
 clean:
 	$(RM) $(BIN)
-	$(RM) $(OBJS)

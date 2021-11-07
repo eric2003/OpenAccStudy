@@ -3,7 +3,8 @@
 #include "timer.h"
 #define nx 4096
 #define _A(array, ix, iy) (array[(ix) + nx * (iy)])
-#define real double
+//#define real double
+#define real float
 
 int fun( int i, int j )
 {
@@ -27,7 +28,7 @@ int main(int argc, char** argv)
 	real * Anew = (real*)malloc(mn*sizeof(real));
 	real * y0 = (real*)malloc(n*sizeof(real));
 
-    //memset(A, 0, mn * sizeof(real));
+    memset(A, 0, mn * sizeof(real));
 
     for ( int j = 0; j < n; j++ )
     {
