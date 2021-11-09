@@ -26,8 +26,8 @@ if ( MPI_ENABLE )
 	list ( APPEND PRJ_INCLUDE_DIRS ${MPI_INCLUDE_DIRS} )
 endif()
 
-#set ( AUTO_ACC TRUE )
-set ( AUTO_ACC FALSE )
+set ( AUTO_ACC TRUE )
+#set ( AUTO_ACC FALSE )
 
 find_package ( CUDAToolkit )
 find_package ( OpenACC )
@@ -51,6 +51,7 @@ if ( OpenACC_CXX_FOUND AND AUTO_ACC )
 		list ( APPEND PRJ_COMPILE_DEF NVCC_COMPILER_ENABLED )
 	else()
 		set( ACC_FLAG "-Ofast" )
+		#set( ACC_FLAG "-Ofast ${GPUFLAGS}" )
 	endif()
 	if ( CUDAToolkit_FOUND )
 		set ( OpenACC_CXX_FLAGS "${OpenACC_CXX_FLAGS} ${ACC_FLAG}" )
@@ -58,6 +59,8 @@ if ( OpenACC_CXX_FOUND AND AUTO_ACC )
 		set ( OpenACC_CXX_FLAGS "${OpenACC_CXX_FLAGS} ${ACC_FLAG} -foffload=disable" )
 	endif()
 endif ()
+
+message ( STATUS "OpenACC_CXX_FLAGS now = ${OpenACC_CXX_FLAGS}" )
 
 find_package ( OpenMP )
 if ( OpenMP_FOUND )
@@ -69,6 +72,8 @@ if ( OpenMP_FOUND )
 endif ()
 
 set ( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS} ${OpenACC_CXX_FLAGS}" )
+
+message ( STATUS "CMAKE_CXX_FLAGS now = ${CMAKE_CXX_FLAGS}" )
 
 if ( CUDAToolkit_FOUND )
 	enable_language( CUDA )
